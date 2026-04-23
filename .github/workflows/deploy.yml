@@ -6,7 +6,6 @@ on:
 
 jobs:
   build:
-    # Prevent infinite loop from self-commits
     if: "!contains(github.event.head_commit.message, 'Update image')"
 
     runs-on: ubuntu-latest
@@ -15,35 +14,35 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Normalize Docker username (removes spaces + forces lowercase)
+    # Normalize username
     - name: Normalize Docker username
       run: |
-        CLEAN_USERNAME=$(echo "${{ secrets.DOCKER_USERNAME }}" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
-        echo "USERNAME=$CLEAN_USERNAME" >> $GITHUB_ENV
+        CLEAN=$(echo "${{ secrets.DOCKER_USERNAME }}" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
+        echo "USERNAME=$CLEAN" >> $GITHUB_ENV
 
-    # Login to Docker Hub
+    # Login
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    # Build Docker image
+    # Build image (FIXED PATH)
     - name: Build Docker image
       run: |
-        docker build -t $USERNAME/demo-app:${{ github.sha }} .
+        docker build -t $USERNAME/docker-images/demo-app:${{ github.sha }} .
 
-    # Push Docker image
+    # Push image
     - name: Push Docker image
       run: |
-        docker push $USERNAME/demo-app:${{ github.sha }}
+        docker push $USERNAME/docker-images/demo-app:${{ github.sha }}
 
-    # Update Kubernetes manifest
+    # Update Kubernetes manifest (FIXED PATH)
     - name: Update deployment.yaml
       run: |
-        sed -i "s|image: .*|image: $USERNAME/demo-app:${{ github.sha }}|" k8s/deployment.yaml
+        sed -i "s|image: .*|image: $USERNAME/docker-images/demo-app:${{ github.sha }}|" k8s/deployment.yaml
 
-    # Commit and push changes
+    # Commit changes
     - name: Commit updated manifest
       run: |
         git config user.name "github-actions"
