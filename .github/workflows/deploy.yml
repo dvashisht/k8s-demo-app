@@ -12,6 +12,7 @@ jobs:
 
     env:
       DOCKER_USER: vashishtd
+      IMAGE_NAME: demo-app
 
     steps:
     - name: Checkout code
@@ -25,15 +26,15 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t $DOCKER_USER/docker-images/demo-app:${{ github.sha }} .
+        docker build -t $DOCKER_USER/$IMAGE_NAME:${{ github.sha }} .
 
     - name: Push Docker image
       run: |
-        docker push $DOCKER_USER/docker-images/demo-app:${{ github.sha }}
+        docker push $DOCKER_USER/$IMAGE_NAME:${{ github.sha }}
 
     - name: Update deployment.yaml
       run: |
-        sed -i "s|image: .*|image: $DOCKER_USER/docker-images/demo-app:${{ github.sha }}|" k8s/deployment.yaml
+        sed -i "s|image: .*|image: $DOCKER_USER/$IMAGE_NAME:${{ github.sha }}|" k8s/deployment.yaml
 
     - name: Commit updated manifest
       run: |
