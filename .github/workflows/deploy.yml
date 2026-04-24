@@ -32,7 +32,7 @@ jobs:
 
     - name: Update deployment.yaml
       run: |
-        sed -i "s|image: .*|image: $DOCKER_USER/$IMAGE_NAME:${{ github.sha }}|" deployment.yaml
+        sed -i "s|IMAGE_TAG|${{ github.sha }}|" deployment.yaml
 
     - name: Commit and push changes
       run: |

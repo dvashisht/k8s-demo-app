@@ -25,6 +25,6 @@ spec:
     spec:
       containers:
       - name: demo-app
-        image: vashishtd/demo-app:latest   # will be updated by pipeline
+        image: vashishtd/demo-app:IMAGE_TAG   # <-- placeholder (DO NOT change manually)
         ports:
         - containerPort: 80
