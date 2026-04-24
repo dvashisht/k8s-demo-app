@@ -26,10 +26,10 @@ spec:
       containers:
 <<<<<<< HEAD
       - name: demo
-        image: vashishtd/demo-app:0b8a597ddb3fca5f2e5031fef575be1f114f3d41
+        image: vashishtd/demo-app:423435e770a197a66abcc03be061028f5845c333
 =======
       - name: demo-app
-        image: vashishtd/demo-app:latest   # ArgoCD will update this
+        image: vashishtd/demo-app:423435e770a197a66abcc03be061028f5845c333
 >>>>>>> ea2ca05 (Canary Deployment with Argo Rollouts)
         ports:
         - containerPort: 80
