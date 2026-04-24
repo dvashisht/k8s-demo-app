@@ -25,6 +25,6 @@ spec:
     spec:
       containers:
       - name: demo-app
-        image: vashishtd/docker-images/demo-app:latest
+        image: vashishtd/demo-app:27c778b06b2f2d255c44661bd2c84b594a2b8dbf
         ports:
         - containerPort: 80
