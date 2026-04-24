@@ -3,7 +3,7 @@ kind: Rollout
 metadata:
   name: demo-app
 spec:
-  replicas: 1
+  replicas: 2
 
   strategy:
     canary:
@@ -25,6 +25,6 @@ spec:
     spec:
       containers:
       - name: demo-app
-        image: vashishtd/demo-app:IMAGE_TAG   # <-- placeholder (DO NOT change manually)
+        image: vashishtd/demo-app:IMAGE_TAG   # ✅ placeholder
         ports:
         - containerPort: 80
