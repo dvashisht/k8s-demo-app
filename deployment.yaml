@@ -1,19 +1,35 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: demo-app
 spec:
   replicas: 2
+
+  strategy:
+    canary:
+      steps:
+      - setWeight: 20
+      - pause: { duration: 30 }
+      - setWeight: 50
+      - pause: { duration: 30 }
+      - setWeight: 100
+
   selector:
     matchLabels:
-      app: demo
+      app: demo-app
+
   template:
     metadata:
       labels:
-        app: demo
+        app: demo-app
     spec:
       containers:
+<<<<<<< HEAD
       - name: demo
         image: vashishtd/demo-app:0b8a597ddb3fca5f2e5031fef575be1f114f3d41
+=======
+      - name: demo-app
+        image: vashishtd/demo-app:latest   # ArgoCD will update this
+>>>>>>> ea2ca05 (Canary Deployment with Argo Rollouts)
         ports:
         - containerPort: 80
