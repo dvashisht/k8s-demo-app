@@ -25,6 +25,6 @@ spec:
     spec:
       containers:
       - name: demo-app
-        image: vashishtd/demo-app:IMAGE_TAG   # ✅ placeholder
+        image: vashishtd/demo-app:1572a369392880e52bbd8f87f06b342c63561e44   # ✅ placeholder
         ports:
         - containerPort: 80
