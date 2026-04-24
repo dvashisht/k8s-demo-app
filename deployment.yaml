@@ -25,6 +25,6 @@ spec:
     spec:
       containers:
       - name: demo-app
-        image: vashishtd/docker-images/demo-app:latest
+        image: vashishtd/demo-app:latest   # will be updated by pipeline
         ports:
         - containerPort: 80
